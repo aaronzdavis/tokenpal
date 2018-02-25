@@ -1,0 +1,14 @@
+.container
+
+  h2
+    = link_to 'Token Scanner', root_path
+
+  br
+
+  = render 'main_table', tokens: [@token]
+
+  = render 'chart', chart_id: 'chart_hour', ticks: @ticks.hour
+
+  = render 'chart', chart_id: 'chart_day', ticks: @ticks.day
+
+  = render 'chart', chart_id: 'chart_week', ticks: @ticks.week

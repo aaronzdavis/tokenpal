@@ -1,0 +1,14 @@
+.container
+  h2 Token Scanner
+
+  br
+
+  = render 'main_table', tokens: @tokens
+
+  br
+
+  = render 'market_cap'
+
+  br
+
+  = link_to 'New Token', new_token_path

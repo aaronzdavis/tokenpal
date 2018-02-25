@@ -1,0 +1,22 @@
+- latest_tick_hour = token.ticks.hour.latest.first
+- latest_tick_day = token.ticks.day.latest.first
+- ticks_hour = token.ticks.hour.where(:created_at.lte => Time.now + 1.days, :created_at.gte => Time.now - 20.days)
+
+tr
+  td = link_to token.name, token
+  td = token.sym
+  td = "$#{number_with_precision(token.price_usd, precision: 2, delimiter: ',')}"
+  td = "$#{number_with_precision(token.market_cap_usd, precision: 0, delimiter: ',')}"
+  td = "#{token.percent_change_24h}%"
+  td
+    = render 'status_bar', token: token, status: token.ma_status_21, opacity: token.ma_21_opacity
+  td
+    = render 'status_bar', token: token, status: token.ma_status_50, opacity: token.ma_50_opacity
+  td
+    = render 'status_bar', token: token, status: token.ma_status_200, opacity: token.ma_200_opacity
+  td
+    = render 'status_bar', token: token, status: token.cloud_status_hour, opacity: token.cloud_status_hour_opacity
+  td
+    = render 'status_bar', token: token, status: token.cloud_status_day, opacity: token.cloud_status_day_opacity
+  td
+    = render 'status_bar', token: token, status: token.cloud_status_week, opacity: token.cloud_status_week_opacity
