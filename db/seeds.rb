@@ -1,6 +1,6 @@
 Token.all.destroy
 
-r = HTTParty.get('https://api.coinmarketcap.com/v1/ticker/?limit=5')
+r = HTTParty.get('https://api.coinmarketcap.com/v1/ticker/?limit=10')
 
 r.each do |token|
   p "Creating Tokens..."
