@@ -8,6 +8,14 @@ body {
   }
 }
 
+.percent-change {
+  color: red;
+
+  &.positive {
+    color: green;
+  }
+}
+
 .status_bar {
   position: relative;
   height: 100px;
@@ -21,11 +29,18 @@ body {
 
   .Above {
     background: green;
-    bottom: 50px;
+    bottom: 49px;
   }
 
   .Below {
     background: red;
-    top: 50px;
+    top: 51px;
+  }
+
+  .Inside {
+    top: 49px !important;
+    height: 2px !important;
+    background: darkgrey !important;
+    opacity: 1 !important;
   }
 }

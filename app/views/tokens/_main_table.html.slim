@@ -1,17 +1,36 @@
 table.table
   thead
     tr
+      th colspan="4"
+      th colspan="2"
+        center Change
+      th colspan="3"
+        center Moving Averages
+      th colspan="3"
+        center Ichimoku Cloud
+    tr
       th Token
       th Symbol
       th Price
       th Market Cap
-      th 24H Change
-      th MA 21
-      th MA 50
-      th MA 200
-      th Cloud (H)
-      th Cloud (D)
-      th Cloud (W)
+      th
+        center 24H
+      th
+        center 7D
+      th
+        center 21D
+      th
+        center 50D
+      th
+        center 200D
+      th
+        center H
+      th
+        center D
+      th
+        center W
+      th
+        center 7D
 
   tbody
     =  render tokens
