@@ -1,7 +1,3 @@
-- latest_tick_hour = token.ticks.hour.latest.first
-- latest_tick_day = token.ticks.day.latest.first
-- ticks_hour = token.ticks.hour.where(:created_at.lte => Time.now + 1.days, :created_at.gte => Time.now - 20.days)
-
 tr
   td = link_to token.name, token
   td = token.sym
