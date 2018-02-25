@@ -13,7 +13,6 @@ production:
        # We recommend 15 because it allows for plenty of time
        # in most operating environments.
        connect_timeout: 10
-       raise_not_found_error: false
 
 development:
   # Configure available database clients. (required)
