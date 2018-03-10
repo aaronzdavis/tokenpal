@@ -20,26 +20,26 @@ class Tick
   field :created_at, type: DateTime
   embedded_in :token
 
-  # validates :created_at, presence: true
-  # validates :duration, presence: true
+  validates :created_at, presence: true
+  validates :duration, presence: true
 
   default_scope -> { order(created_at: -1) }
   scope :reverse, -> { order(created_at: 1) }
-  scope :hour, -> { where(duration: 60) }
-  scope :day, -> { where(duration: 1440) }
-  scope :week, -> { where(duration: 10080) }
+  scope :hour, -> { where(duration: 1.hour.to_i) }
+  scope :day, -> { where(duration: 1.day.to_i) }
+  scope :week, -> { where(duration: 1.week.to_i) }
   scope :latest, -> { where(:created_at.lte => Time.now).limit(1) }
 
   # after_create :set_additional_fields
   def set_additional_fields
     p "Setting additional fields..."
-    self.set_moving_average_21
-    self.set_moving_average_50
-    self.set_moving_average_200
-    self.set_conversion_line
-    self.set_base_line
-    self.set_leading_span_a
-    self.set_leading_span_b
+    # self.set_moving_average_21
+    # self.set_moving_average_50
+    # self.set_moving_average_200
+    # self.set_conversion_line
+    # self.set_base_line
+    # self.set_leading_span_a
+    # self.set_leading_span_b
     return "Done!"
   end
 

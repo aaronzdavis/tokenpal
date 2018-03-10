@@ -4,9 +4,9 @@ tr
   td = "$#{number_with_precision(token.price_usd, precision: 2, delimiter: ',')}"
   td = "#{number_with_precision(token.market_cap_usd / 1000000000, precision: 1, delimiter: ',')}B"
   td class="percent-change #{'positive' if token.percent_change_24h.positive?}"
-    = "#{token.percent_change_24h}%"
+    = "#{number_with_precision(token.percent_change_24h * 100, precision: 2)}%"
   td class="percent-change #{'positive' if token.percent_change_7d.positive?}"
-    = "#{token.percent_change_7d}%"
+    = "#{number_with_precision(token.percent_change_7d * 100, precision: 2)}%"
   td
     = render 'status_bar', token: token, status: token.ma_status_21, opacity: token.ma_21_opacity
   td
