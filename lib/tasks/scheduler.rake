@@ -1,6 +1,6 @@
 desc "This task is called by the Heroku scheduler add-on"
 
-task :update_tokens_hourly => :environment do
+task :update_hourly => :environment do
   p "Updating Tokens..."
 
   Token.all.each do |t|
@@ -10,13 +10,9 @@ task :update_tokens_hourly => :environment do
     t.set_fixed_values
   end
 
-  p "done."
-end
-
-task :update_market_cap_hourly => :environment do
   p "Updating Market Cap Hourly..."
 
-  MarketCap.instance.get_new_tick
+  TokenMarketCap.instance.get_new_tick
 
   p "done."
 end

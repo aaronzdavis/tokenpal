@@ -1,5 +1,6 @@
 class Tick
   include Mongoid::Document
+  field :created_at, type: DateTime
   field :duration, type: Integer
   field :high, type: Float
   field :low, type: Float
@@ -17,11 +18,12 @@ class Tick
   field :leading_span_a, type: Float
   field :leading_span_b, type: Float
 
-  field :created_at, type: DateTime
   embedded_in :token
 
   validates :created_at, presence: true
   validates :duration, presence: true
+
+  validates_uniqueness_of :created_at, scope: :duration
 
   default_scope -> { order(created_at: -1) }
   scope :reverse, -> { order(created_at: 1) }
