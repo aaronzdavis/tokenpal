@@ -136,15 +136,15 @@ class Asset
 
   def get_tick_for time
     case time
-    when 1.hour
+    when 1.hour.to_i
       type = "1 Hour"
       limit = 60
       ticks = self.ticks.minute
-    when 1.day
+    when 1.day.to_i
       type = "1 Day"
       limit = 24
       ticks = self.ticks.hour
-    when 1.week
+    when 1.week.to_i
       type = "1 Week"
       limit = 7
       ticks = self.ticks.day
@@ -154,7 +154,7 @@ class Asset
 
     p "Get Tick for #{type}..."
 
-    # # Check the last day tick that was created
+    # Check the last day tick that was created
     if ticks.first.created_at <= Time.now - time
       ticks = ticks.limit(limit)
       t = {}
@@ -181,7 +181,6 @@ class Asset
       duration: d,
       created_at: Time.at(data['time'])
     )
-    t.duration = d
     t.created_at = Time.at(data['time'])
     t.high = data['high']
     t.low = data['low']

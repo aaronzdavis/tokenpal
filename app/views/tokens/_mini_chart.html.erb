@@ -1,1 +1,37 @@
-Chart
+<div id="<%= chart_id %>" style="width: 140px; height: 100px;"></div>
+
+<script>
+  google.charts.load('current', {packages: ['corechart', 'line']});
+  google.charts.setOnLoadCallback(drawBasic);
+
+  function drawBasic() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('date', null);
+    data.addColumn('number', null);
+
+    data.addRows([
+      <% ticks.each_with_index do |t, i| %>
+        [
+          new Date('<%= t.created_at.rfc2822 %>'),
+          <%= t.close %>
+        ],
+      <% end %>
+    ]);
+
+    var options = {
+      hAxis: {
+        textPosition: 'none',
+        gridlines: { count: 0 }
+      },
+      vAxis: {
+        textPosition: 'none',
+        gridlines: { count: 0 }
+      },
+      legend: 'none',
+      chartArea: {width: '90%', height: '90%'}
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('<%= chart_id %>'));
+    chart.draw(data, options);
+  }
+</script>

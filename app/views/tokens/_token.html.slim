@@ -1,5 +1,6 @@
 tr
-  td = link_to token.name, token
+  / td = link_to token.name, token
+  td = token.name
   td = token.sym
   td = "$#{number_with_precision(token.price_usd, precision: 2, delimiter: ',')}"
   td = "#{number_with_precision(token.market_cap_usd / 1000000000, precision: 1, delimiter: ',')}B"
@@ -20,4 +21,4 @@ tr
   td
     = render 'status_bar', token: token, status: token.cloud_status_week, opacity: token.cloud_status_week_opacity
   td
-    = render 'mini_chart'
+    = render 'mini_chart', chart_id: "#{token.sym}_chart", ticks: token.ticks.day.limit(7)

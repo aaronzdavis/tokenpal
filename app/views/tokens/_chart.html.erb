@@ -12,12 +12,12 @@
     data.addColumn('number', 'Leading Span B');
 
     data.addRows([
-      <% ticks.each do |p| %>
+      <% ticks.each do |t| %>
         [
-          new Date('<%= p.created_at.rfc2822 %>'),
-          <%= p.open %>,
-          <%= p.leading_span_a || 0 %>,
-          <%= p.leading_span_b || 0 %>
+          new Date('<%= t.created_at.rfc2822 %>'),
+          <%= t.open %>,
+          <%= t.leading_span_a || 0 %>,
+          <%= t.leading_span_b || 0 %>
         ],
       <% end %>
     ]);

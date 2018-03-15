@@ -42,7 +42,7 @@ class Token < Asset
     d = 1.week.to_i
     limit = qty * 7
     token_ticks = self.ticks.day
-    ticks_set = token_ticks.where(:created_at.lte => Time.now).limit(limit)
+    ticks_set = token_ticks.where(:created_at.lte => Time.now).reverse.limit(limit)
 
     ticks_set.in_groups_of(7, false) do |ticks|
       t = {}

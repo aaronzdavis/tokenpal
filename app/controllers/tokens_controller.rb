@@ -6,9 +6,7 @@ class TokensController < ApplicationController
   def index
     @tokens = Token.all.order(market_cap_usd: -1)
 
-    @market_cap = TokenMarketCap.instance.ticks.day.where(
-      :created_at.lte => Time.now
-    )
+    @market_cap = TokenMarketCap.instance.ticks.day
   end
 
   # GET /tokens/1
