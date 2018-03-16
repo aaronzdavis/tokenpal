@@ -140,14 +140,17 @@ class Asset
       type = "1 Hour"
       limit = 60
       ticks = self.ticks.minute
+      latest_tick = self.ticks.hour.first
     when 1.day.to_i
       type = "1 Day"
       limit = 24
       ticks = self.ticks.hour
+      latest_tick = self.ticks.day.first
     when 1.week.to_i
       type = "1 Week"
       limit = 7
       ticks = self.ticks.day
+      latest_tick = self.ticks.week.first
     end
 
     p ticks.first.created_at
@@ -155,7 +158,7 @@ class Asset
     p "Get Tick for #{type}..."
 
     # Check the last day tick that was created
-    if ticks.first.created_at <= Time.now - time
+    if latest_tick.created_at <= Time.now - time
       ticks = ticks.limit(limit)
       t = {}
       t['time'] = ticks.first.created_at.to_i

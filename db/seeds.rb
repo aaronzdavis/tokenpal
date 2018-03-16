@@ -18,9 +18,9 @@ Token.create(tokens)
 
 Token.all.each do |token|
   # token.get_ticks_minute 200
-  token.get_ticks_hour 200
-  token.get_ticks_day 200
-  token.get_ticks_week 200
+  token.get_ticks_hour 400
+  token.get_ticks_day 400
+  token.get_ticks_week 400
 
   token.set_fixed_values
 end
