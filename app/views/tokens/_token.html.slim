@@ -21,4 +21,4 @@ tr
   td
     = render 'status_bar', token: token, status: token.cloud_status_week, opacity: token.cloud_status_week_opacity
   td
-    = render 'mini_chart', chart_id: "#{token.sym}_chart", ticks: token.ticks.day.limit(7)
+    = render 'mini_chart', chart_id: "#{token.sym}_chart", ticks: token.token.ticks.hour.limit(1) + token.ticks.day.limit(7)
