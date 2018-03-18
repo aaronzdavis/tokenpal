@@ -173,6 +173,27 @@ class Asset
     end
   end
 
+  def get_ticks_week qty
+    p "Get Ticks Week (#{qty})..."
+
+    d = 1.week.to_i
+    limit = qty * 7
+    token_ticks = self.ticks.day
+    ticks_set = token_ticks.where(:created_at.lte => Time.now).reverse.limit(limit)
+
+    ticks_set.in_groups_of(7, false) do |ticks|
+      t = {}
+      t['time'] = ticks.first.created_at.to_i
+      t['high'] = ticks.map(&:high).max
+      t['low'] = ticks.map(&:low).min
+      t['open'] = ticks.map(&:open).sum / ticks.count
+      t['close'] = ticks.map(&:close).sum / ticks.count
+      self.create_tick t, d
+    end
+
+    p 'Done!'
+  end
+
   def create_ticks h, d
     h.each do |t|
       self.create_tick t, d
@@ -194,13 +215,13 @@ class Asset
     p t.close
   end
 
-  def get_percent_change_24h
-    ticks = self.ticks.day.limit(2)
-    (ticks[0].close - ticks[1].close) / ticks[0].close
+  def get_percent_change_24h current_price
+    tick = self.ticks.day.where(:created_at.lte => Time.now - 1.day).first
+    (current_price - tick.close) / current_price
   end
 
-  def get_percent_change_7d
-    ticks = self.ticks.day.limit(7)
-    (ticks[0].close - ticks[6].close) / ticks[0].close
+  def get_percent_change_7d current_price
+    tick = self.ticks.day.where(:created_at.lte => Time.now - 7.day).first
+    (current_price - tick.close) / current_price
   end
 end

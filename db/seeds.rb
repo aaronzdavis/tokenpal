@@ -1,29 +1,81 @@
-Token.destroy_all
+# Token.destroy_all
 
-tokens = [
-  {name: "Bitcoin", sym: "BTC"},
-  {name: "Ethereum", sym: "ETH"},
-  {name: "Ripple", sym: "XRP"},
-  {name: "Bitcoin Cassh", sym: "BCH"},
-  {name: "Litecoin", sym: "LTC"},
-  {name: "NEO", sym: "NEO"},
-  {name: "Cardano", sym: "ADA"},
-  {name: "Stellar", sym: "XLM"},
-  {name: "EOS", sym: "EOS"},
-  {name: "Monero", sym: "XMR"}
+# tokens = [
+#   {name: "Bitcoin", sym: "BTC"},
+#   {name: "Ethereum", sym: "ETH"},
+#   {name: "Ripple", sym: "XRP"},
+#   {name: "Bitcoin Cassh", sym: "BCH"},
+#   {name: "Litecoin", sym: "LTC"},
+#   {name: "NEO", sym: "NEO"},
+#   {name: "Cardano", sym: "ADA"},
+#   {name: "Stellar", sym: "XLM"},
+#   {name: "EOS", sym: "EOS"},
+#   {name: "Monero", sym: "XMR"}
+# ]
+
+# Token.create(tokens)
+
+# Token.all.each do |token|
+#   # token.get_ticks_minute 200
+#   token.get_ticks_hour 400
+#   token.get_ticks_day 400
+#   token.get_ticks_week 400
+
+#   token.set_fixed_values
+# end
+
+# Stock.destroy_all
+
+stocks = [
+  {name: "SPDR S&P 500 ETF Trust", sym: "SPY"},
+  # {name: "PowerShares QQQ Trust, Series 1 (ETF)", sym: "QQQ"},
+  # {name: "SPDR Dow Jones Industrial Average ETF", sym: "DIA"},
+  # {name: "iShares Russell 2000 Index (ETF)", sym: "IWM"},
+  # {name: "iShares Barclays 20+ Yr Treas.Bond (ETF)", sym: "TLT"},
+  # {name: "SPDR Gold Shares", sym: "GLD"},
+  # {name: "Guggenheim CurrencyShares Euro Trust", sym: "FXE"},
+  # {name: "VIX", sym: "VIX"},
 ]
 
+Stock.create(stocks)
 
-Token.create(tokens)
+Stock.all.each do |stock|
 
-Token.all.each do |token|
-  # token.get_ticks_minute 200
-  token.get_ticks_hour 400
-  token.get_ticks_day 400
-  token.get_ticks_week 400
+  d = 1.hour.to_i
+  sym = stock.sym
+  30.times do |i|
+    time = Time.now - (30 - i).days
+    response = HTTParty.get("https://api.iextrading.com/1.0/stock/#{sym}/chart/date/#{time.strftime("%Y%m%d")}?chartInterval=60")
+    response.each do |h|
+      data = {}
+      data['time'] = Time.parse("#{h['date']} #{h['minute']}")
+      data['high'] = h['high']
+      data['low'] = h['low']
+      data['open'] = h['high']
+      data['close'] = h['low']
+      stock.create_tick data, d
+    end
+  end
 
-  token.set_fixed_values
+  d = 1.day.to_i
+  sym = stock.sym
+  response = HTTParty.get("https://api.iextrading.com/1.0/stock/#{sym}/chart/2y")
+  response.each do |h|
+    data = {}
+    data['time'] = Time.parse("#{h['date']}")
+    data['high'] = h['high']
+    data['low'] = h['low']
+    data['open'] = h['open']
+    data['close'] = h['close']
+    stock.create_tick data, d
+  end
+
+  stock.get_ticks_week 110
+
+  stock.set_fixed_values
+
 end
+
 
 # TokenMarketCap.destroy_all
 # tmc = TokenMarketCap.instance

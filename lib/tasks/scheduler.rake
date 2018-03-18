@@ -10,6 +10,13 @@ task :update_hourly => :environment do
     t.set_fixed_values
   end
 
+  Stock.all.each do |t|
+    t.get_ticks_hour
+    t.get_tick_for 1.day.to_i
+    t.get_tick_for 1.week.to_i
+    t.set_fixed_values
+  end
+
   p "Get Market Cap tick..."
 
   tmc = TokenMarketCap.instance

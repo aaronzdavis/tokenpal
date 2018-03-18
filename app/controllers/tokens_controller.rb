@@ -5,6 +5,7 @@ class TokensController < ApplicationController
   # GET /tokens.json
   def index
     @tokens = Token.all.order(market_cap_usd: -1)
+    @stocks = Stock.all.order(market_cap_usd: -1)
 
     @market_cap = TokenMarketCap.instance.ticks.day
   end

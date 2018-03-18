@@ -1,0 +1,24 @@
+tr
+  / td = link_to stock.name, stock
+  td = stock.name
+  td = stock.sym
+  td = "$#{number_with_precision(stock.price_usd, precision: 2, delimiter: ',')}"
+  td = "#{number_with_precision(stock.market_cap_usd / 1000000000, precision: 1, delimiter: ',')}B"
+  td class="percent-change #{'positive' if stock.percent_change_24h.positive?}"
+    = "#{number_with_precision(stock.percent_change_24h * 100, precision: 2)}%"
+  td class="percent-change #{'positive' if stock.percent_change_7d.positive?}"
+    = "#{number_with_precision(stock.percent_change_7d * 100, precision: 2)}%"
+  td
+    = render 'tokens/status_bar', token: stock, status: stock.ma_status_21, opacity: stock.ma_21_opacity
+  td
+    = render 'tokens/status_bar', token: stock, status: stock.ma_status_50, opacity: stock.ma_50_opacity
+  td
+    = render 'tokens/status_bar', token: stock, status: stock.ma_status_200, opacity: stock.ma_200_opacity
+  td
+    = render 'tokens/status_bar', token: stock, status: stock.cloud_status_hour, opacity: stock.cloud_status_hour_opacity
+  td
+    = render 'tokens/status_bar', token: stock, status: stock.cloud_status_day, opacity: stock.cloud_status_day_opacity
+  td
+    = render 'tokens/status_bar', token: stock, status: stock.cloud_status_week, opacity: stock.cloud_status_week_opacity
+  td
+    = render 'mini_chart', chart_id: "#{stock.sym}_chart", ticks: stock.ticks.hour.limit(1) + stock.ticks.day.limit(7)
