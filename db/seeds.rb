@@ -28,13 +28,13 @@
 
 stocks = [
   {name: "SPDR S&P 500 ETF Trust", sym: "SPY"},
-  # {name: "PowerShares QQQ Trust, Series 1 (ETF)", sym: "QQQ"},
-  # {name: "SPDR Dow Jones Industrial Average ETF", sym: "DIA"},
-  # {name: "iShares Russell 2000 Index (ETF)", sym: "IWM"},
-  # {name: "iShares Barclays 20+ Yr Treas.Bond (ETF)", sym: "TLT"},
-  # {name: "SPDR Gold Shares", sym: "GLD"},
-  # {name: "Guggenheim CurrencyShares Euro Trust", sym: "FXE"},
-  # {name: "VIX", sym: "VIX"},
+  {name: "PowerShares QQQ Trust, Series 1 (ETF)", sym: "QQQ"},
+  {name: "SPDR Dow Jones Industrial Average ETF", sym: "DIA"},
+  {name: "iShares Russell 2000 Index (ETF)", sym: "IWM"},
+  {name: "iShares Barclays 20+ Yr Treas.Bond (ETF)", sym: "TLT"},
+  {name: "SPDR Gold Shares", sym: "GLD"},
+  {name: "Guggenheim CurrencyShares Euro Trust", sym: "FXE"},
+  {name: "VIX", sym: "VIX"}
 ]
 
 Stock.create(stocks)
