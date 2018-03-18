@@ -24,7 +24,7 @@
 #   token.set_fixed_values
 # end
 
-# Stock.destroy_all
+Stock.destroy_all
 
 stocks = [
   {name: "SPDR S&P 500 ETF Trust", sym: "SPY"},
@@ -34,12 +34,14 @@ stocks = [
   {name: "iShares Barclays 20+ Yr Treas.Bond (ETF)", sym: "TLT"},
   {name: "SPDR Gold Shares", sym: "GLD"},
   {name: "Guggenheim CurrencyShares Euro Trust", sym: "FXE"},
-  {name: "VIX", sym: "VIX"}
+  {name: "PROSHARES Tr II/SHORT VIX SHORT-TER", sym: "SVXY"}
 ]
 
 Stock.create(stocks)
 
 Stock.all.each do |stock|
+
+  p stock.sym
 
   d = 1.hour.to_i
   sym = stock.sym
@@ -59,7 +61,7 @@ Stock.all.each do |stock|
 
   d = 1.day.to_i
   sym = stock.sym
-  response = HTTParty.get("https://api.iextrading.com/1.0/stock/#{sym}/chart/2y")
+  response = HTTParty.get("https://api.iextrading.com/1.0/stock/#{sym}/chart/1m")
   response.each do |h|
     data = {}
     data['time'] = Time.parse("#{h['date']}")
